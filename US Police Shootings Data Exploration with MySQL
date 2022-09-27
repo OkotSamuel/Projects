@@ -53,7 +53,7 @@ ORDER BY count DESC;
 # Adults were the highest number of people killed in the US Police shootings.
 SELECT 
 	CASE
-		WHEN age < 15 THEN "children"
+	WHEN age < 15 THEN "children"
         WHEN age BETWEEN 15 and 25 THEN "youth"
         WHEN age BETWEEN 25 and 65 THEN "adults"
         WHEN age > 65  THEN "seniors"
