@@ -1,0 +1,64 @@
+- SELECT * FROM us_police_shootings;
+
+# Shot was the highest manner of death recorded.
+SELECT manner_of_death, COUNT(manner_of_death) as count
+FROM us_police_shootings
+GROUP BY manner_of_death;
+
+# The suspects armed with guns were the highest followed by knife,unarmed,undetermed and vehicle.
+SELECT armed,COUNT(armed) as count
+FROM us_police_shootings
+GROUP BY armed
+ORDER BY count DESC
+LIMIT 5;
+
+# Males were  the highest gender in the US Police shootings
+SELECT gender,COUNT(gender) as count
+FROM us_police_shootings
+GROUP BY gender
+ORDER BY count DESC;
+
+# Whites were the highest race in the US Police shootings.
+SELECT race,COUNT(race) as count
+FROM us_police_shootings
+GROUP BY race
+ORDER BY count DESC;
+
+# California recorded the highest number of US Police shootings.
+SELECT state,COUNT(state) as count
+FROM us_police_shootings
+GROUP BY state
+ORDER BY count DESC;
+
+# Attack was the highest threat level recorded in the US Police shootings.
+SELECT threat_level,COUNT(threat_level) as count
+FROM us_police_shootings
+GROUP BY threat_level
+ORDER BY count DESC;
+
+# 2021 recorded the highest number of deaths in the US Police shooting
+SELECT YEAR(date) as year, COUNT(YEAR(date)) as count
+FROM us_police_shootings
+WHERE manner_of_death IN ("shot"," shot and Tasered") 
+GROUP BY year
+ORDER BY count DESC;
+
+# March was the month with the highest deaths in the US Police shootings.
+SELECT MONTHNAME(date) as month, COUNT(MONTH(date)) as count
+FROM us_police_shootings
+WHERE manner_of_death IN ("shot"," shot and Tasered") 
+GROUP BY month
+ORDER BY count DESC;
+
+# Adults were the highest number of people killed in the US Police shootings.
+SELECT 
+	CASE
+		WHEN age < 15 THEN "children"
+        WHEN age BETWEEN 15 and 25 THEN "youth"
+        WHEN age BETWEEN 25 and 65 THEN "adults"
+        WHEN age > 65  THEN "seniors"
+END as age_range,
+COUNT(*) AS count
+FROM us_police_shootings
+GROUP BY age_range
+ORDER BY count DESC
